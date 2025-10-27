@@ -83,15 +83,11 @@ export default function Navbar() {
                       {portfolioOpen && (
                         <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
                           <div className="py-2">
-                            {sub.map(({ href, label }) => (
-                              <Link
-                                key={href}
-                                href={href}
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-100"
-                              >
-                                {label}
-                              </Link>
-                            ))}
+                            {Array.isArray(sub) && sub.map(({ href, label }) => (
+                            <Link key={href} href={href}>
+                              {label}
+                            </Link>
+                          ))}
                           </div>
                         </div>
                       )}
@@ -155,7 +151,7 @@ export default function Navbar() {
                     </button>
                     {portfolioMobileOpen && (
                       <div className="pl-4 space-y-1 mt-1">
-                        {sub.map(({ href, label }) => (
+                        {Array.isArray(sub) && sub.map(({ href, label }) => (
                           <Link
                             key={href}
                             href={href}
