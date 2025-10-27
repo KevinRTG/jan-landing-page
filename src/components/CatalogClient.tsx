@@ -4,15 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import ProductCard from './ProductCard';
 import Image from 'next/image';
-
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  image_url: string;
-};
-
+import { Product } from '@/types/product'; // pastikan path sesuai
 
 export default function CatalogClient() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,7 +14,14 @@ export default function CatalogClient() {
     const fetchProducts = async () => {
       const { data, error } = await supabase.from('products').select('*');
       if (error) setError(error.message);
-      else setProducts(data || []);
+      else {
+        // pastikan id dikonversi ke string jika perlu
+        const normalized = (data || []).map((item) => ({
+          ...item,
+          id: String(item.id),
+        }));
+        setProducts(normalized);
+      }
     };
     fetchProducts();
   }, []);
