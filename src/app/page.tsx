@@ -1,11 +1,13 @@
 import Hero from '../components/Hero';
-import ProductCard from '../components/ProductCard';
+import IntroSection from '../components/IntroSection';
+import FeaturedServices from '../components/FeaturedServices';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <Hero />
-      <ProductCard />
+      <IntroSection />
+      <FeaturedServices />
       
     </div>
   );

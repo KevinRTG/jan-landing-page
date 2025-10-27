@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from 'next/font/google';
 import "./globals.css";
-import Navbar from "../components/Navbar"; // pastikan path sesuai
-import Footer from "../components/Footer";
+import Navbar from "@/components/Navbar"; // pastikan path sesuai
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ['latin'] });
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'] });
