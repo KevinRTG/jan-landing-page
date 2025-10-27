@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from 'next/font/google';
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar"; // pastikan path sesuai
 import Footer from "@/components/Footer";
-import AOSInitializer from "@/components/AOSInitializer"; 
 
 const inter = Inter({ subsets: ['latin'] });
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'] });
@@ -21,7 +20,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${poppins.className}`}>
-        <AOSInitializer /> 
         <Navbar />
         <main>{children}</main>
         <Footer />

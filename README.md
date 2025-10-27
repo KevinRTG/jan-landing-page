@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## CV. JAN NUSANTARA – Company Profile Website
 
-## Getting Started
+Website ini dibangun untuk menampilkan profil perusahaan konstruksi CV. JAN NUSANTARA, sekaligus menyediakan sistem manajemen katalog produk melalui halaman admin. Proyek ini dikembangkan menggunakan Next.js dan TailwindCSS, dengan Supabase sebagai backend database, dan dideploy menggunakan Vercel.
 
-First, run the development server:
+✨ Fitur Utama
 
-```bash
+- Landing Page: Menampilkan informasi company profile CV. JAN NUSANTARA secara profesional dan responsif.
+- Halaman Login Admin: Sistem autentikasi untuk admin agar dapat mengakses dashboard.
+- Dashboard Admin: Mengelola katalog produk konstruksi (tambah, edit, hapus data produk).
+
+🚀 Teknologi yang Digunakan
+
+| Teknologi     | Deskripsi |
+|---------------|-----------|
+| Next.js       | Framework React untuk aplikasi web modern dan SSR |
+| TailwindCSS   | Utility-first CSS framework untuk styling cepat dan konsisten |
+| Supabase      | Backend open-source berbasis PostgreSQL untuk autentikasi dan database |
+| Vercel        | Platform hosting dan deployment untuk aplikasi Next.js |
+
+🛠️ Cara Menjalankan Proyek
+
+Jalankan development server:
+
+`bash
 npm run dev
-# or
+
+atau
 yarn dev
-# or
+
+atau
 pnpm dev
-# or
+
+atau
 bun dev
-```
+`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka http://localhost:3000 di browser untuk melihat hasilnya.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Edit halaman utama di app/page.tsx. Perubahan akan langsung terlihat berkat fitur hot-reload.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🔤 Font
 
-## Learn More
+Proyek ini menggunakan next/font untuk mengoptimalkan dan memuat font Geist dari Vercel.
 
-To learn more about Next.js, take a look at the following resources:
+📚 Dokumentasi & Referensi
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Dokumentasi Next.js
+- Tutorial Interaktif Next.js
+- Repository GitHub Next.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🚢 Deployment
 
-## Deploy on Vercel
+Website ini dideploy menggunakan Vercel, platform resmi dari pembuat Next.js.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Lihat panduan lengkapnya di Dokumentasi Deployment Next.js.
