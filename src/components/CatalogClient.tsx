@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/supabaseClient';
 import ProductCard from './ProductCard';
 import Image from 'next/image';
 import { Product } from '@/types/product'; // pastikan path sesuai
@@ -12,7 +12,7 @@ export default function CatalogClient() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data, error } = await supabase.from('products').select('*');
+      const { data, error } = await supabaseClient.from('products').select('*');
       if (error) setError(error.message);
       else {
         // pastikan id dikonversi ke string jika perlu

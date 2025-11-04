@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -16,11 +16,21 @@ export default function Navbar() {
   const [portfolioOpen, setPortfolioOpen] = useState(false);
   const [portfolioMobileOpen, setPortfolioMobileOpen] = useState(false);
   const pathname = usePathname();
+  const portfolioRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (portfolioRef.current && !portfolioRef.current.contains(event.target as Node)) {
+        setPortfolioOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const navLinks = [
     { href: '/', label: 'Beranda' },
     { href: '/about', label: 'Tentang Kami' },
-    { href: '/catalog', label: 'Katalog' },
     { href: '/layanan', label: 'Layanan' },
     {
       href: '#',
@@ -62,12 +72,17 @@ export default function Navbar() {
             {/* Desktop Nav */}
             <div className="hidden md:flex space-x-6 items-center">
               {navLinks.map(({ href, label, sub }) => (
-                <div key={href} className="relative">
+                <div
+                  key={href}
+                  className="relative"
+                  ref={label === 'Portofolio' ? portfolioRef : undefined}
+                >
                   {label === 'Portofolio' ? (
                     <>
                       <button
+                        tabIndex={0}
                         onClick={() => setPortfolioOpen(!portfolioOpen)}
-                        className={`px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1 transition ${
+                        className={`px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1 transition focus:outline-none focus:ring-2 focus:ring-yellow-400 ${
                           pathname.startsWith('/portfolio')
                             ? 'bg-yellow-500 text-white'
                             : 'text-gray-800 hover:bg-yellow-100'
@@ -84,10 +99,14 @@ export default function Navbar() {
                         <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
                           <div className="py-2">
                             {Array.isArray(sub) && sub.map(({ href, label }) => (
-                            <Link key={href} href={href}>
-                              {label}
-                            </Link>
-                          ))}
+                              <Link
+                                key={href}
+                                href={href}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-700 transition"
+                              >
+                                {label}
+                              </Link>
+                            ))}
                           </div>
                         </div>
                       )}
@@ -172,8 +191,8 @@ export default function Navbar() {
                     href={href}
                     className={`block px-3 py-2 rounded-md text-sm font-medium transition ${
                       pathname === href
-                        ? 'bg-purple-600 text-white'
-                        : 'text-gray-800 hover:bg-purple-100'
+                        ? 'bg-yellow-500 text-white'
+                        : 'text-gray-800 hover:bg-yellow-100'
                     }`}
                     onClick={() => setIsOpen(false)}
                   >

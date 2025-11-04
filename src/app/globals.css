@@ -19,8 +19,68 @@
   }
 }
 
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+@keyframes scrollInfinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-loop-container {
+  position: relative;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 100px;
+  cursor: default;
+}
+
+.logo-loop-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: scrollInfinite 60s linear infinite;
+  user-select: none;
+  cursor: grab;
+}
+
+.logo-loop-container:hover .logo-loop-track {
+  animation-play-state: paused;
+}
+
+.logo-loop-track:active {
+  cursor: grabbing;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: translateZ(0); /* force GPU acceleration */
+  will-change: background-position;
 }
