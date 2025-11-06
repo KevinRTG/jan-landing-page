@@ -1,22 +1,22 @@
-// src/components/ui/ButtonPrimary.tsx
-import { Button } from '@mui/material';
+'use client';
 
-export default function ButtonPrimary({ children, href, ...props }) {
-  return (
-    <Button
-      variant="contained"
-      color="primary"
-      href={href}
-      sx={{
-        borderRadius: 2,
-        textTransform: 'none',
-        px: 3,
-        py: 1.5,
-        boxShadow: 3,
-      }}
-      {...props}
-    >
-      {children}
-    </Button>
-  );
+import { Button, ButtonProps } from '@mui/material';
+import Link from 'next/link';
+import { ReactNode } from 'react';
+
+interface ButtonPrimaryProps extends ButtonProps {
+  children: ReactNode;
+  href?: string;
+}
+
+export default function ButtonPrimary({ children, href, ...props }: ButtonPrimaryProps) {
+  if (href) {
+    return (
+      <Link href={href} passHref>
+        <Button {...props}>{children}</Button>
+      </Link>
+    );
+  }
+
+  return <Button {...props}>{children}</Button>;
 }
