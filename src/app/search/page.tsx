@@ -2,11 +2,22 @@ import { supabase } from '@/lib/supabaseClient';
 
 export default async function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
   const query = searchParams.q || '';
+  let results = [];
 
-  const { data: results, error } = await supabase
-    .from('projects')
-    .select('*')
-    .ilike('title', `%${query}%`);
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .select('*')
+      .ilike('title', `%${query}%`);
+
+    if (error) {
+      console.error('Supabase error:', error.message);
+    } else {
+      results = data || [];
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+  }
 
   return (
     <section className="py-16 px-4 max-w-4xl mx-auto">

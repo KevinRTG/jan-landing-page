@@ -6,6 +6,8 @@ import { FaArrowRight } from 'react-icons/fa';
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ButtonPrimary from '@/components/ui/ButtonPrimary';
+
 
 export default function ViewAllProductsButton() {
   useEffect(() => {
@@ -56,12 +58,12 @@ export default function ViewAllProductsButton() {
 
       {/* Tombol CTA */}
       <div className="text-center mt-12" data-aos="fade-up" data-aos-delay="200">
-        <Link
+        <ButtonPrimary
           href="/catalog"
-          className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300"
+          endIcon={<FaArrowRight className="text-sm" />}
         >
-          Lihat Semua Produk <FaArrowRight className="text-sm" />
-        </Link>
+          Lihat Semua Produk
+        </ButtonPrimary>
       </div>
     </section>
   );

@@ -24,7 +24,7 @@ export default function Home() {
         <ClientLoop />
       </section>
 
-      <section data-aos="fade-up" data-aos-delay="200">
+      <section data-aos="fade-up" data-aos-delay="400">
         <FeaturedServices />
       </section>
 
