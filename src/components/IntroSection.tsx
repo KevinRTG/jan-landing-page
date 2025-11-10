@@ -1,10 +1,10 @@
 'use client';
 
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
+import MotionBox from './MotionBox'; 
+import Box from '@mui/material/Box';
 
 export default function IntroSection() {
   return (
@@ -43,8 +43,7 @@ export default function IntroSection() {
       >
         {/* Gambar */}
         <Grid item xs={12} md={6}>
-          <Box
-            component={motion.div}
+          <MotionBox
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -69,13 +68,12 @@ export default function IntroSection() {
                 borderRadius: '8px',
               }}
             />
-          </Box>
+          </MotionBox>
         </Grid>
 
         {/* Teks */}
         <Grid item xs={12} md={6}>
-          <Box
-            component={motion.div}
+          <MotionBox
             initial={{ opacity: 0.01, x: 50, visibility: 'hidden' }}
             whileInView={{ opacity: 1, x: 0, visibility: 'visible' }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -109,7 +107,7 @@ export default function IntroSection() {
             >
               CV. JAN Nusantara adalah perusahaan konstruksi yang berkomitmen menghadirkan solusi pembangunan yang berkualitas dan berkelanjutan. Kami telah dipercaya dalam berbagai proyek jalan, jembatan, dan gedung di seluruh Indonesia.
             </Typography>
-          </Box>
+          </MotionBox>
         </Grid>
       </Grid>
     </Box>
