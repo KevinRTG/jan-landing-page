@@ -6,7 +6,7 @@ const theme = createTheme({
     secondary: { main: '#1f2937' }, // abu gelap
   },
   typography: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'Roboto, sans-serif',
   },
 });
 

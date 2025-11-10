@@ -6,6 +6,7 @@ import ClientLoop from '../components/ClientLoop';
 import IntroSection from '../components/IntroSection';
 import FeaturedServices from '../components/FeaturedServices';
 import ViewAllProductsButton from '../components/ViewAllProductsButton';
+import CtaSection from '@/components/CtaSection';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -34,6 +35,10 @@ export default function Home() {
 
       <section data-aos="fade-up" data-aos-delay="400">
         <ViewAllProductsButton />
+      </section>
+
+      <section data-aos="fade-up" data-aos-delay="400">
+        <CtaSection />
       </section>
 
     </div>

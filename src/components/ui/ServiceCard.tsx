@@ -17,7 +17,7 @@ export default function ServiceCard({
       sx={{
         p: { xs: 2, sm: 3 },
         textAlign: 'center',
-        borderRadius: 3,
+        borderRadius: 5,
         height: '100%',
         minHeight: 50,
         bgcolor: 'background.paper',
@@ -32,10 +32,10 @@ export default function ServiceCard({
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 1 }}>
           {icon}
         </Box>
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body1" color="text.secondary">
           {description}
         </Typography>
       </CardContent>

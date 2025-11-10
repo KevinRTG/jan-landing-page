@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useEffect } from 'react';
+import { Box, Typography } from '@mui/material';
 
 const clients = [
   { name: 'pln', logo: '/pln.png' },
@@ -17,20 +17,92 @@ export default function ClientLoop() {
   const duplicatedClients = [...clients, ...clients];
 
   return (
-    <section className="py-16 bg-white relative">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Klien Kami</h2>
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 10, md: 20 },
+        px: { xs: 2, md: 8 },
+        width: '100%',
+        maxWidth: '1600px',
+        mx: 'auto',
+        position: 'relative',
+      }}
+    >
+      <Typography
+        variant="h4"
+        fontWeight="bold"
+        textAlign="center"
+        color="text.primary"
+        mb={{ xs: 6, md: 10 }}
+        sx={{
+          fontSize: {
+            xs: '1.75rem',
+            sm: '2rem',
+            md: '2.25rem',
+            lg: '2.5rem',
+          },
+        }}
+      >
+        Klien Kami
+      </Typography>
 
-      <div className="logo-loop-container">
+      <Box sx={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
         {/* Fade edges */}
-        <div className="absolute left-0 top-0 w-16 h-full bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 w-16 h-full bg-linear-to-l from-white to-transparent z-10 pointer-events-none" />
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: 64,
+            height: '100%',
+            background: 'linear-gradient(to right, white, transparent)',
+            zIndex: 10,
+            pointerEvents: 'none',
+          }}
+        />
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: 64,
+            height: '100%',
+            background: 'linear-gradient(to left, white, transparent)',
+            zIndex: 10,
+            pointerEvents: 'none',
+          }}
+        />
 
         {/* Logo track */}
-        <div className="logo-loop-track flex gap-4 animate-scroll">
+        <Box
+          className="logo-loop-track"
+          sx={{
+            display: 'flex',
+            gap: 4,
+            animation: 'scroll 30s linear infinite',
+            '@keyframes scroll': {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+          }}
+        >
           {duplicatedClients.map((client, i) => (
-            <div
+            <Box
               key={`${client.name}-${i}`}
-              className="relative w-[200px] h-[100px] flex items-center justify-center shrink-0 fade-in"
+              sx={{
+                position: 'relative',
+                width: 200,
+                height: 100,
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: 0,
+                animation: `fadeIn 0.6s ease ${i * 0.1}s forwards`,
+                '@keyframes fadeIn': {
+                  to: { opacity: 1 },
+                },
+              }}
             >
               <Image
                 src={client.logo}
@@ -39,15 +111,10 @@ export default function ClientLoop() {
                 className="object-contain grayscale hover:grayscale-0 transition duration-300"
                 sizes="(max-width: 768px) 100px, 140px"
               />
-            </div>
+            </Box>
           ))}
-        </div>
-
-        {/* Parallax section */}
-        <div className="relative z-0 h-[300px] overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('/slide2.png')] bg-cover bg-center parallax" />
-        </div>
-      </div>
-    </section>
+        </Box>
+      </Box>
+    </Box>
   );
 }

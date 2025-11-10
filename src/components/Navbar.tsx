@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   FaChevronDown,
@@ -15,6 +16,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [portfolioOpen, setPortfolioOpen] = useState(false);
   const [portfolioMobileOpen, setPortfolioMobileOpen] = useState(false);
+  const [language, setLanguage] = useState<'id' | 'en'>('id');
   const pathname = usePathname();
   const portfolioRef = useRef<HTMLDivElement>(null);
 
@@ -29,25 +31,25 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: '/', label: 'Beranda' },
-    { href: '/about', label: 'Tentang Kami' },
-    { href: '/layanan', label: 'Layanan' },
+    { href: '/', label: language === 'id' ? 'Beranda' : 'Home' },
+    { href: '/about', label: language === 'id' ? 'Tentang Kami' : 'About Us' },
+    { href: '/layanan', label: language === 'id' ? 'Layanan' : 'Services' },
     {
       href: '#',
-      label: 'Portofolio',
+      label: language === 'id' ? 'Portofolio' : 'Portfolio',
       sub: [
-        { href: '/portfolio/projects', label: 'Projects' },
-        { href: '/portfolio/lokasi-project', label: 'Lokasi Project' },
+        { href: '/portfolio/projects', label: language === 'id' ? 'Proyek' : 'Projects' },
+        { href: '/portfolio/lokasi-project', label: language === 'id' ? 'Lokasi Proyek' : 'Project Locations' },
       ],
     },
-    { href: '/contact', label: 'Kontak' },
+    { href: '/contact', label: language === 'id' ? 'Kontak' : 'Contact' },
   ];
 
   return (
     <header className="sticky top-0 z-50">
       {/* TopBar */}
       <div className="bg-gray-900 text-gray-100 text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center py-2 gap-2 md:gap-0">
+        <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center py-2 gap-2 md:gap-0">
           <div className="flex space-x-4 items-center">
             <Link href="#" className="hover:text-blue-400"><FaFacebookF /></Link>
             <Link href="#" className="hover:text-blue-400"><FaTwitter /></Link>
@@ -56,17 +58,33 @@ export default function Navbar() {
           </div>
           <div className="flex space-x-4 items-center text-center md:text-right">
             <span>Call: <a href="tel:+628123455555" className="hover:text-blue-400">+62 812-3455-5555</a></span>
-            <span>Bahasa: <span className="text-blue-400">Indonesia</span></span>
+            <div className="flex items-center space-x-2">
+              <span>{language === 'id' ? 'Bahasa:' : 'Language:'}</span>
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as 'id' | 'en')}
+                className="bg-gray-800 text-white text-sm px-2 py-1 rounded hover:bg-gray-700"
+              >
+                <option value="id">Indonesia</option>
+                <option value="en">English</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Navbar */}
       <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-xl font-bold text-yellow-500 hover:text-yellow-800 transition">
-              CV. JAN Nusantara
+        <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-24">
+            <Link href="/" className="block w-[180px] h-[60px] relative">
+              <Image
+                src="/logo-jan1.png"
+                alt="JAN Nusantara Logo"
+                fill
+                className="object-contain"
+                priority
+              />
             </Link>
 
             {/* Desktop Nav */}
@@ -75,9 +93,9 @@ export default function Navbar() {
                 <div
                   key={href}
                   className="relative"
-                  ref={label === 'Portofolio' ? portfolioRef : undefined}
+                  ref={label === (language === 'id' ? 'Portofolio' : 'Portfolio') ? portfolioRef : undefined}
                 >
-                  {label === 'Portofolio' ? (
+                  {sub ? (
                     <>
                       <button
                         tabIndex={0}
@@ -98,7 +116,7 @@ export default function Navbar() {
                       {portfolioOpen && (
                         <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
                           <div className="py-2">
-                            {Array.isArray(sub) && sub.map(({ href, label }) => (
+                            {sub.map(({ href, label }) => (
                               <Link
                                 key={href}
                                 href={href}
@@ -151,7 +169,7 @@ export default function Navbar() {
           <div className="px-3 pt-2 pb-4 space-y-2 bg-white shadow-md">
             {navLinks.map(({ href, label, sub }) => (
               <div key={href}>
-                {label === 'Portofolio' ? (
+                {sub ? (
                   <>
                     <button
                       onClick={() => setPortfolioMobileOpen(!portfolioMobileOpen)}
@@ -170,7 +188,7 @@ export default function Navbar() {
                     </button>
                     {portfolioMobileOpen && (
                       <div className="pl-4 space-y-1 mt-1">
-                        {Array.isArray(sub) && sub.map(({ href, label }) => (
+                        {sub.map(({ href, label }) => (
                           <Link
                             key={href}
                             href={href}
