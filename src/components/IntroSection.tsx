@@ -1,7 +1,7 @@
 'use client';
 
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid'; // ✅ default import
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import MotionBox from './MotionBox';
