@@ -1,7 +1,7 @@
 'use client';
 
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Unstable_Grid2'; // ✅ gunakan Grid2
+import Grid from '@mui/material/Grid'; // ✅ stabil
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import MotionBox from './MotionBox';
@@ -35,8 +35,8 @@ export default function IntroSection() {
       />
 
       {/* Konten */}
-      <Grid container spacing={{ xs: 4, md: 8 }} alignItems="center" sx={{ position: 'relative', zIndex: 2, maxWidth: '1600px', mx: 'auto' }}>
-        <Grid xs={12} md={6}>
+      <Grid container spacing={4} alignItems="center" sx={{ position: 'relative', zIndex: 2, maxWidth: '1600px', mx: 'auto' }}>
+        <Grid item xs={12} md={6}>
           <MotionBox
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -55,7 +55,7 @@ export default function IntroSection() {
           </MotionBox>
         </Grid>
 
-        <Grid xs={12} md={6}>
+        <Grid item xs={12} md={6}>
           <MotionBox
             initial={{ opacity: 0.01, x: 50, visibility: 'hidden' }}
             whileInView={{ opacity: 1, x: 0, visibility: 'visible' }}
