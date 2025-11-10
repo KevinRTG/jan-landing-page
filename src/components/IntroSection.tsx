@@ -43,75 +43,73 @@ export default function IntroSection() {
       >
         {/* Gambar */}
         <Grid item xs={12} md={6}>
-          <motion.div
+          <Box
+            component={motion.div}
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true, amount: 0.3 }}
+            sx={{
+              width: '100%',
+              borderRadius: 2,
+              overflow: 'hidden',
+              boxShadow: 3,
+            }}
           >
-            <Box
-              sx={{
+            <Image
+              src="/slide1.jpg"
+              alt="Tentang Konstruksi"
+              width={600}
+              height={400}
+              loading="lazy"
+              style={{
                 width: '100%',
-                borderRadius: 2,
-                overflow: 'hidden',
-                boxShadow: 3,
+                height: 'auto',
+                objectFit: 'cover',
+                borderRadius: '8px',
               }}
-            >
-              <Image
-                src="/slide1.jpg"
-                alt="Tentang Konstruksi"
-                width={600}
-                height={400}
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  objectFit: 'cover',
-                  borderRadius: '8px',
-                }}
-              />
-            </Box>
-          </motion.div>
+            />
+          </Box>
         </Grid>
 
         {/* Teks */}
         <Grid item xs={12} md={6}>
-          <motion.div
+          <Box
+            component={motion.div}
             initial={{ opacity: 0.01, x: 50, visibility: 'hidden' }}
             whileInView={{ opacity: 1, x: 0, visibility: 'visible' }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             viewport={{ once: true, amount: 0.3 }}
+            sx={{ maxWidth: 600 }}
           >
-            <Box sx={{ maxWidth: 600 }}>
-              <Typography
-                variant="h4"
-                fontWeight="bold"
-                color="text.primary"
-                gutterBottom
-                sx={{
-                  fontSize: {
-                    xs: '1.75rem',
-                    sm: '2rem',
-                    md: '2.25rem',
-                  },
-                }}
-              >
-                Tentang Kami
-              </Typography>
-              <Typography
-                variant="body1"
-                color="text.secondary"
-                sx={{
-                  fontSize: {
-                    xs: '1rem',
-                    sm: '1.125rem',
-                  },
-                }}
-              >
-                CV. JAN Nusantara adalah perusahaan konstruksi yang berkomitmen menghadirkan solusi pembangunan yang berkualitas dan berkelanjutan. Kami telah dipercaya dalam berbagai proyek jalan, jembatan, dan gedung di seluruh Indonesia.
-              </Typography>
-            </Box>
-          </motion.div>
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              color="text.primary"
+              gutterBottom
+              sx={{
+                fontSize: {
+                  xs: '1.75rem',
+                  sm: '2rem',
+                  md: '2.25rem',
+                },
+              }}
+            >
+              Tentang Kami
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{
+                fontSize: {
+                  xs: '1rem',
+                  sm: '1.125rem',
+                },
+              }}
+            >
+              CV. JAN Nusantara adalah perusahaan konstruksi yang berkomitmen menghadirkan solusi pembangunan yang berkualitas dan berkelanjutan. Kami telah dipercaya dalam berbagai proyek jalan, jembatan, dan gedung di seluruh Indonesia.
+            </Typography>
+          </Box>
         </Grid>
       </Grid>
     </Box>
