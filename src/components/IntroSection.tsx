@@ -1,7 +1,7 @@
 'use client';
 
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid'; 
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import MotionBox from './MotionBox';
@@ -35,14 +35,29 @@ export default function IntroSection() {
       />
 
       {/* Konten */}
-      <Grid container spacing={4} alignItems="center" sx={{ position: 'relative', zIndex: 2, maxWidth: '1600px', mx: 'auto' }}>
-        <Grid item xs={12} md={6}>
+      <Grid
+        container
+        spacing={4}
+        alignItems="center"
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+          maxWidth: '1600px',
+          mx: 'auto',
+        }}
+      >
+        <Grid item xs={12} md={6} component="div">
           <MotionBox
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true, amount: 0.3 }}
-            sx={{ width: '100%', borderRadius: 2, overflow: 'hidden', boxShadow: 3 }}
+            sx={{
+              width: '100%',
+              borderRadius: 2,
+              overflow: 'hidden',
+              boxShadow: 3,
+            }}
           >
             <Image
               src="/slide1.jpg"
@@ -60,7 +75,7 @@ export default function IntroSection() {
           </MotionBox>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} component="div">
           <MotionBox
             initial={{ opacity: 0.01, x: 50, visibility: 'hidden' }}
             whileInView={{ opacity: 1, x: 0, visibility: 'visible' }}
@@ -68,10 +83,31 @@ export default function IntroSection() {
             viewport={{ once: true, amount: 0.3 }}
             sx={{ maxWidth: 600 }}
           >
-            <Typography variant="h4" fontWeight="bold" color="text.primary" gutterBottom sx={{ fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' } }}>
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              color="text.primary"
+              gutterBottom
+              sx={{
+                fontSize: {
+                  xs: '1.75rem',
+                  sm: '2rem',
+                  md: '2.25rem',
+                },
+              }}
+            >
               Tentang Kami
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.125rem' } }}>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{
+                fontSize: {
+                  xs: '1rem',
+                  sm: '1.125rem',
+                },
+              }}
+            >
               CV. JAN Nusantara adalah perusahaan konstruksi yang berkomitmen menghadirkan solusi pembangunan yang berkualitas dan berkelanjutan. Kami telah dipercaya dalam berbagai proyek jalan, jembatan, dan gedung di seluruh Indonesia.
             </Typography>
           </MotionBox>

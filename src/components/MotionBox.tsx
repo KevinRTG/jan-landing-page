@@ -1,15 +1,9 @@
 'use client';
 
 import { Box, BoxProps } from '@mui/material';
-import { motion, MotionProps } from 'framer-motion';
-import { forwardRef } from 'react';
+import { motion } from 'framer-motion';
 
-type MotionBoxProps = BoxProps & MotionProps;
-
-const MotionBox = forwardRef<HTMLDivElement, MotionBoxProps>((props, ref) => (
-  <Box ref={ref} component={motion.div as any} {...props} />
-));
-
-MotionBox.displayName = 'MotionBox';
+// Buat MotionBox langsung dari motion(Box) dengan typing
+const MotionBox = motion<BoxProps>(Box);
 
 export default MotionBox;
