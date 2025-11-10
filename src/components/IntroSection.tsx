@@ -71,6 +71,7 @@ export default function IntroSection() {
           </MotionBox>
         </Grid>
 
+
         {/* Teks */}
         <Grid item xs={12} md={6}>
           <MotionBox
