@@ -46,7 +46,7 @@ export default function IntroSection() {
           mx: 'auto',
         }}
       >
-        <Grid item xs={12} md={6} component="div">
+        <Grid item xs={12} md={6}>
           <MotionBox
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -75,7 +75,7 @@ export default function IntroSection() {
           </MotionBox>
         </Grid>
 
-        <Grid item xs={12} md={6} component="div">
+        <Grid item xs={12} md={6}>
           <MotionBox
             initial={{ opacity: 0.01, x: 50, visibility: 'hidden' }}
             whileInView={{ opacity: 1, x: 0, visibility: 'visible' }}
