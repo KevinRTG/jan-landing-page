@@ -1,10 +1,10 @@
 'use client';
 
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
-import MotionBox from './MotionBox'; 
-import Box from '@mui/material/Box';
+import MotionBox from './MotionBox';
 
 export default function IntroSection() {
   return (
@@ -70,7 +70,6 @@ export default function IntroSection() {
             />
           </MotionBox>
         </Grid>
-
 
         {/* Teks */}
         <Grid item xs={12} md={6}>
