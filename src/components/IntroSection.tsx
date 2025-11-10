@@ -1,18 +1,42 @@
 'use client';
 
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid'; // ✅ default import
+import Grid from '@mui/material/Unstable_Grid2'; // ✅ gunakan Grid2
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import MotionBox from './MotionBox';
 
 export default function IntroSection() {
   return (
-    <Box component="section" sx={{ position: 'relative', bgcolor: 'blue.50', pt: { xs: 12, sm: 16, md: 20 }, pb: { xs: 8, sm: 10, md: 14 }, px: { xs: 2, sm: 4, md: 6 }, overflow: 'hidden' }}>
-      <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 80, backgroundColor: 'background.paper', borderBottomLeftRadius: '50% 20%', borderBottomRightRadius: '50% 20%', zIndex: 1 }} />
+    <Box
+      component="section"
+      sx={{
+        position: 'relative',
+        bgcolor: 'blue.50',
+        pt: { xs: 12, sm: 16, md: 20 },
+        pb: { xs: 8, sm: 10, md: 14 },
+        px: { xs: 2, sm: 4, md: 6 },
+        overflow: 'hidden',
+      }}
+    >
+      {/* Lengkungan Atas */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: 80,
+          backgroundColor: 'background.paper',
+          borderBottomLeftRadius: '50% 20%',
+          borderBottomRightRadius: '50% 20%',
+          zIndex: 1,
+        }}
+      />
 
+      {/* Konten */}
       <Grid container spacing={{ xs: 4, md: 8 }} alignItems="center" sx={{ position: 'relative', zIndex: 2, maxWidth: '1600px', mx: 'auto' }}>
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <MotionBox
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -31,7 +55,7 @@ export default function IntroSection() {
           </MotionBox>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <MotionBox
             initial={{ opacity: 0.01, x: 50, visibility: 'hidden' }}
             whileInView={{ opacity: 1, x: 0, visibility: 'visible' }}
