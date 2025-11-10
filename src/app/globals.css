@@ -76,11 +76,7 @@ body {
 }
 
 
-.parallax {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  transform: translateZ(0); /* force GPU acceleration */
-  will-change: background-position;
+.text-shadow {
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
 }
+

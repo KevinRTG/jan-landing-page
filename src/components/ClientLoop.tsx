@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { useRef, useState, useEffect } from 'react';
 
 const clients = [
   { name: 'pln', logo: '/pln.png' },
@@ -14,7 +15,57 @@ const clients = [
 ];
 
 export default function ClientLoop() {
-  const duplicatedClients = [...clients, ...clients];
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const logos = isDesktop ? clients : [...clients, ...clients];
+
+  // Auto-scroll only on mobile
+  useEffect(() => {
+    if (isDesktop) return;
+
+    let frameId: number;
+    const step = () => {
+      if (scrollRef.current && !isPaused && !isDragging) {
+        scrollRef.current.scrollLeft += 0.5;
+        if (
+          scrollRef.current.scrollLeft >=
+          scrollRef.current.scrollWidth - scrollRef.current.clientWidth
+        ) {
+          scrollRef.current.scrollLeft = 0;
+        }
+      }
+      frameId = requestAnimationFrame(step);
+    };
+
+    frameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameId);
+  }, [isPaused, isDragging, isDesktop]);
+
+  // Drag-scroll
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
 
   return (
     <Box
@@ -75,29 +126,40 @@ export default function ClientLoop() {
 
         {/* Logo track */}
         <Box
-          className="logo-loop-track"
+          ref={scrollRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={() => {
+            handleMouseLeave();
+            setIsPaused(false);
+          }}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsPaused(true)}
           sx={{
             display: 'flex',
             gap: 4,
-            animation: 'scroll 30s linear infinite',
-            '@keyframes scroll': {
-              '0%': { transform: 'translateX(0)' },
-              '100%': { transform: 'translateX(-50%)' },
-            },
+            overflowX: 'auto',
+            whiteSpace: 'nowrap',
+            scrollBehavior: 'auto',
+            cursor: isDragging ? 'grabbing' : 'grab',
+            userSelect: 'none',
+            paddingBottom: 2,
+            '&::-webkit-scrollbar': { display: 'none' },
           }}
         >
-          {duplicatedClients.map((client, i) => (
+          {logos.map((client, i) => (
             <Box
               key={`${client.name}-${i}`}
               sx={{
                 position: 'relative',
-                width: 200,
+                minWidth: 200,
                 height: 100,
                 flexShrink: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 opacity: 0,
+                pointerEvents: isDragging ? 'none' : 'auto',
                 animation: `fadeIn 0.6s ease ${i * 0.1}s forwards`,
                 '@keyframes fadeIn': {
                   to: { opacity: 1 },

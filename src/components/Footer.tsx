@@ -23,8 +23,8 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gradient-to-b from-blue-900 via-blue-800 to-blue-700 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-gradient-to-b from-gray-700 via-gray-900 to-black text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* Logo */}
         <div className="flex justify-center mb-10">
@@ -38,33 +38,20 @@ export default function Footer() {
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Tentang Kami */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Tentang Kami</h3>
-            <p className="text-sm mb-4">
-              CV. JAN Nusantara adalah penyedia jasa General Contractor berbasis di Bekasi, melayani pengadaan, eksekusi, dan maintenance proyek konstruksi. Kami berkomitmen menghadirkan solusi berkualitas, efisien, dan berkelanjutan untuk kebutuhan skala besar maupun mikro.
-            </p>
-            <div className="flex space-x-4 text-xl text-gray-300">
-              <a href="#" className="hover:text-yellow-300" aria-label="Facebook"><FaFacebookF /></a>
-              <a href="#" className="hover:text-yellow-300" aria-label="Twitter"><FaTwitter /></a>
-              <a href="#" className="hover:text-yellow-300" aria-label="Instagram"><FaInstagram /></a>
-              <a href="#" className="hover:text-yellow-300" aria-label="YouTube"><FaYoutube /></a>
-            </div>
-          </div>
-
+        {/* Grid Content */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Quick Links */}
           <div>
             <h4 className="text-md font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/" className="hover:text-yellow-300">Beranda</Link></li>
-              <li><Link href="/about" className="hover:text-yellow-300">Tentang Kami</Link></li>
-              <li><Link href="/services" className="hover:text-yellow-300">Layanan Kami</Link></li>
-              <li><Link href="/contact" className="hover:text-yellow-300">Kontak</Link></li>
+              <li><Link href="/" className="hover:text-gray-400 transition">Beranda</Link></li>
+              <li><Link href="/about" className="hover:text-gray-400 transition">Tentang Kami</Link></li>
+              <li><Link href="/services" className="hover:text-gray-400 transition">Layanan Kami</Link></li>
+              <li><Link href="/contact" className="hover:text-gray-400 transition">Kontak</Link></li>
             </ul>
           </div>
 
-          {/* Website */}
+          {/* Website & Search */}
           <div>
             <h4 className="text-md font-semibold mb-4">Website</h4>
             <p className="text-sm mb-4">www.jannusantara.id</p>
@@ -75,11 +62,11 @@ export default function Footer() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Cari..."
-                className="w-full px-3 py-2 rounded-l bg-gray-800 text-sm text-white placeholder-gray-400"
+                className="w-full px-3 py-2 rounded-l bg-gray-900 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
               />
               <button
                 onClick={handleSearch}
-                className="bg-yellow-500 px-4 py-2 rounded-r text-sm text-white hover:bg-yellow-600"
+                className="bg-black px-4 py-2 rounded-r text-sm text-white hover:bg-gray-700 transition"
               >
                 Go!
               </button>
@@ -98,7 +85,7 @@ export default function Footer() {
                 <span className="block sm:inline">Email:</span>{' '}
                 <a
                   href="mailto:JANNusantaraGroup@gmail.com"
-                  className="text-white hover:text-yellow-300 break-all block sm:inline"
+                  className="text-white hover:text-gray-300 break-all block sm:inline"
                 >
                   JANNusantaraGroup@gmail.com
                 </a>
@@ -112,12 +99,26 @@ export default function Footer() {
                 </span>
               </li>
             </ul>
+
+            {/* Social Icons */}
+            <div className="flex space-x-4 mt-6 text-xl text-gray-400">
+              <a href="#" className="hover:text-blue-500 transition" aria-label="Facebook"><FaFacebookF /></a>
+              <a href="#" className="hover:text-blue-400 transition" aria-label="Twitter"><FaTwitter /></a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="text-gray-400 hover:text-[#dc2743] transition duration-300"
+              >
+                <FaInstagram />
+              </a>
+              <a href="#" className="hover:text-red-800 transition" aria-label="YouTube"><FaYoutube /></a>
+            </div>
           </div>
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-12 border-t border-blue-500 pt-6 text-center text-xs text-gray-300">
-          All Rights Reserved. &copy; {new Date().getFullYear()}. PT. JanusLab.IDC
+        <div className="mt-12 border-t border-gray-600 pt-6 text-center text-xs text-gray-400">
+          All Rights Reserved. &copy; {new Date().getFullYear()}. CV. JAN NUSANTARA
         </div>
       </div>
     </footer>

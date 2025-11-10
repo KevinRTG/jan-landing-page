@@ -1,36 +1,54 @@
 'use client';
 
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+} from '@mui/material';
 import { motion } from 'framer-motion';
-import ServiceCard from '@/components/ui/ServiceCard';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 
-import RoadIcon from '@mui/icons-material/AltRoute';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import BridgeIcon from '@mui/icons-material/AccountTree';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-
-const services = [
+const features = [
   {
-    icon: <RoadIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
-    title: 'Pekerjaan Jalan Raya & Tol',
-    description: 'Kami membangun dan memperbaiki infrastruktur jalan dengan standar keselamatan dan kualitas tinggi.',
+    title: 'Keunggulan Kualitas & Standar Tinggi',
+    description:
+      'JAN Nusantara berkomitmen untuk memberikan hasil konstruksi dengan kualitas terbaik, menggunakan material unggul dan standar internasional yang dapat diandalkan untuk setiap proyek.',
   },
   {
-    icon: <ApartmentIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
-    title: 'Gedung Perkantoran & Perumahan',
-    description: 'Desain dan konstruksi gedung perkantoran dan rumah tinggal yang aman dan ramah lingkungan.',
+    title: 'Inovasi & Teknologi Terbaru',
+    description:
+      'Kami selalu mengadopsi teknologi terbaru dan metode konstruksi inovatif untuk memastikan proyek berjalan efisien, tepat waktu, dan dengan hasil maksimal.',
   },
   {
-    icon: <BridgeIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
-    title: 'Jembatan & Struktur Besar',
-    description: 'Konstruksi jembatan dan struktur besar yang kokoh dan tahan lama.',
+    title: 'Pengalaman & Keahlian Profesional',
+    description:
+      'Dengan tim yang berkompeten dan berpengalaman di berbagai jenis proyek, kami mampu mengatasi tantangan teknis dan memastikan kesuksesan setiap proyek.',
   },
   {
-    icon: <ManageAccountsIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
-    title: 'Manajemen Proyek & Konsultasi',
-    description: 'Perencanaan teknis dan manajerial untuk proyek konstruksi besar dan kompleks.',
+    title: 'Fokus pada Keberlanjutan',
+    description:
+      'Kami mengutamakan konstruksi ramah lingkungan dengan mengintegrasikan prinsip keberlanjutan, efisiensi sumber daya, dan solusi yang mendukung pembangunan jangka panjang.',
+  },
+  {
+    title: 'Komitmen terhadap Klien & Kemitraan Jangka Panjang',
+    description:
+      'Kami tidak hanya membangun proyek, tetapi juga membangun hubungan yang kuat dan saling menghargai dengan klien, memberikan solusi yang disesuaikan dengan kebutuhan dan visi mereka.',
+  },
+  {
+    title: 'Ketepatan Waktu & Efisiensi Biaya',
+    description:
+      'JAN Nusantara mengutamakan ketepatan waktu dalam setiap proyek, serta efisiensi biaya tanpa mengorbankan kualitas, sehingga memberikan nilai terbaik bagi klien.',
+  },
+  {
+    title: 'Reputasi Terpercaya',
+    description:
+      'Dengan rekam jejak yang solid dan portofolio yang terus berkembang, kami telah dipercaya oleh banyak klien untuk menyelesaikan berbagai proyek penting.',
   },
 ];
 
@@ -48,129 +66,160 @@ export default function FeaturedServices() {
     },
   });
 
+  const badgeStyle = {
+    display: 'inline-block',
+    fontSize: '0.75rem',
+    fontWeight: 600,
+    color: '#ffffff',
+    backgroundColor: '#111827',
+    px: 1.5,
+    py: 0.5,
+    borderRadius: '999px',
+    mb: 1,
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
+  };
+
   return (
-      <Box
-        component="section"
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 10, md: 20 },
+        px: { xs: 2, md: 8 },
+        width: '100%',
+        background: 'linear-gradient(to top, #000000, #374151)',
+        color: '#ffffff',
+      }}
+    >
+      <Typography
+        variant="h4"
+        fontWeight="bold"
+        textAlign="center"
+        mb={{ xs: 6, md: 10 }}
         sx={{
-          position: 'relative',
-          py: { xs: 10, md: 20 },
-          px: { xs: 2, md: 8 },
-          width: '100%',
-          background: 'linear-gradient(to bottom, #1E3A8A, #3B82F6)',
-          color: '#fff',
-          overflow: 'hidden',
+          fontSize: {
+            xs: '1.75rem',
+            sm: '2rem',
+            md: '2.25rem',
+            lg: '2.5rem',
+          },
+          color: '#ffffff',
+          textShadow: '0 2px 4px rgba(0,0,0,0.4)',
         }}
       >
+        Mengapa Harus JAN?
+      </Typography>
 
-      {/* Gelombang SVG di atas */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: { xs: 80, md: 150 },
-          zIndex: 1,
-          lineHeight: 0,
-        }}
-      >
-
-        <svg
-          viewBox="0 0 1440 150"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-          style={{ width: '100%', height: '100%', display: 'block' }}
-        >
-          <path
-            fill="#fff"
-            d="M0,0 C480,80 960,0 1440,60 L1440,0 L0,0 Z"
-          />
-        </svg>
-      </Box>
-
-
-      {/* Konten */}
-      <Box sx={{ position: 'relative', zIndex: 2 }}>
-        <Typography
-          variant="h4"
-          fontWeight="bold"
-          textAlign="center"
-          mb={{ xs: 6, md: 10 }}
+      {isMobile ? (
+        <Box
+          ref={sliderRef}
+          className="keen-slider"
           sx={{
-            fontSize: {
-              xs: '1.75rem',
-              sm: '2rem',
-              md: '2.25rem',
-              lg: '2.5rem',
-            },
+            display: 'flex',
+            width: '100%',
+            minHeight: 220,
           }}
         >
-          Layanan Unggulan Kami
-        </Typography>
-
-        {isMobile ? (
-          <Box
-            ref={sliderRef}
-            className="keen-slider"
-            sx={{
-              display: 'flex',
-              width: '100%',
-              minHeight: 220,
-            }}
-          >
-            {services.map((service, index) => (
-              <Box
-                className="keen-slider__slide"
-                key={index}
-                sx={{
-                  scrollSnapAlign: 'start',
-                  width: 220,
-                  flex: '0 0 auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                >
-                  <ServiceCard {...service} />
-                </motion.div>
-              </Box>
-            ))}
-          </Box>
-        ) : (
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: {
-                xs: '1fr',
-                sm: 'repeat(2, 1fr)',
-                lg: 'repeat(auto-fit, minmax(300px, 1fr))',
-              },
-              gap: { xs: 3, md: 5 },
-              width: '100%',
-              minHeight: 400,
-            }}
-          >
-
-            {services.map((service, index) => (
+          {features.map((item, index) => (
+            <Box
+              className="keen-slider__slide"
+              key={index}
+              sx={{
+                scrollSnapAlign: 'start',
+                width: 280,
+                flex: '0 0 auto',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
               >
-                <ServiceCard {...service} />
+                <Card
+                  variant="outlined"
+                  sx={{
+                    width: 280,
+                    backgroundColor: '#ffffff',
+                    color: '#111827',
+                    border: '1px solid #d1d5db',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-6px)',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+                      borderColor: '#111827',
+                    },
+                  }}
+                >
+                  <CardContent>
+                    <Box sx={badgeStyle}>Fitur</Box>
+                    <Typography variant="h6" fontWeight="bold" gutterBottom>
+                      {item.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
               </motion.div>
-            ))}
-          </Box>
-        )}
-      </Box>
+            </Box>
+          ))}
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, 1fr)',
+              lg: 'repeat(auto-fit, minmax(300px, 1fr))',
+            },
+            gap: { xs: 3, md: 5 },
+            width: '100%',
+          }}
+        >
+          {features.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Card
+                variant="outlined"
+                sx={{
+                  backgroundColor: '#ffffff',
+                  color: '#111827',
+                  border: '1px solid #d1d5db',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  height: '100%',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-6px)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+                    borderColor: '#111827',
+                  },
+                }}
+              >
+                <CardContent>
+                  <Box sx={badgeStyle}>Fitur</Box>
+                  <Typography variant="h6" fontWeight="bold" gutterBottom>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 }

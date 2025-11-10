@@ -7,6 +7,7 @@ import IntroSection from '../components/IntroSection';
 import FeaturedServices from '../components/FeaturedServices';
 import ViewAllProductsButton from '../components/ViewAllProductsButton';
 import CtaSection from '@/components/CtaSection';
+import WhatsAppShortcut from '@/components/WhatsAppShortcut';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -22,25 +23,26 @@ export default function Home() {
       </section>
 
       <section data-aos="fade-up" data-aos-delay="100">
+        <IntroSection />
+      </section>
+
+      <section data-aos="fade-up" data-aos-delay="200">
         <ClientLoop />
       </section>
 
-      <section data-aos="fade-up" data-aos-delay="400">
-        <FeaturedServices />
-      </section>
-
       <section data-aos="fade-up" data-aos-delay="300">
-        <IntroSection />
+        <FeaturedServices />
       </section>
 
       <section data-aos="fade-up" data-aos-delay="400">
         <ViewAllProductsButton />
       </section>
 
-      <section data-aos="fade-up" data-aos-delay="400">
+      <section data-aos="fade-up" data-aos-delay="500">
         <CtaSection />
       </section>
-
+      
+      <WhatsAppShortcut />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import WhatsAppShortcut from '@/components/WhatsAppShortcut';
 
 export default function LayananPage() {
   return (
@@ -59,7 +60,10 @@ export default function LayananPage() {
             <li>Menara BTS: Instalasi & Sarana Penunjang</li>
           </ul>
         </div>
+        
+        <WhatsAppShortcut />
       </section>
     </main>
+    
   );
 }
