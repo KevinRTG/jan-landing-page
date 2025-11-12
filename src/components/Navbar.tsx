@@ -4,44 +4,66 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import Typography from '@mui/material/Typography';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState('');
+  const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+      setIsClient(true);
+    }, []);
+
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = [
-        { id: 'visimisi', href: '#visimisi' },
-        { id: 'viewallproduct', href: '#viewallproduct' },
-      ];
+  const sectionIds = ['visimisi', 'featuredservices', 'viewallproduct'];
+  const sectionElements = sectionIds
+    .map((id) => {
+      const el = document.getElementById(id);
+      return el ? { id, el } : null;
+    })
+    .filter(Boolean) as { id: string; el: HTMLElement }[];
 
-      for (const section of sections) {
-        const el = document.getElementById(section.id);
-        if (el) {
-          const top = el.getBoundingClientRect().top;
-          if (top <= 100 && top >= -300) {
-            setActiveSection(section.href);
-            return;
-          }
+  const visibilityMap = new Map<string, number>();
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        visibilityMap.set(entry.target.id, entry.intersectionRatio);
+      });
+
+      // Cari section dengan rasio tertinggi
+      let maxRatio = 0;
+      let mostVisibleId = '';
+      visibilityMap.forEach((ratio, id) => {
+        if (ratio > maxRatio) {
+          maxRatio = ratio;
+          mostVisibleId = id;
         }
+      });
+
+      if (mostVisibleId) {
+        setActiveSection(`#${mostVisibleId}`);
       }
+    },
+    {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+      rootMargin: '0px 0px -40% 0px',
+    }
+  );
 
-      setActiveSection('');
-    };
+  sectionElements.forEach(({ el }) => observer.observe(el));
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+  return () => observer.disconnect();
+}, []);
 
 
   const navLinks = [
     { href: '/', label: 'Beranda' },
-    { href: '#visimisi', label: 'Visi Misi' },
-    { href: '#viewallproduct', label: 'Produk Kami' },
+    { href: '/#visimisi', label: 'Visi Misi' },
+    { href: '/#featuredservices', label: 'Mengapa JAN?' },
+    { href: '/#viewallproduct', label: 'Produk Kami' },
     { href: '/layanan', label: 'Layanan' },
     { href: '/contact', label: 'Kontak' },
   ];

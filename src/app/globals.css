@@ -19,6 +19,9 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--background);
@@ -74,7 +77,6 @@ body {
     transform: translateY(0);
   }
 }
-
 
 .text-shadow {
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);

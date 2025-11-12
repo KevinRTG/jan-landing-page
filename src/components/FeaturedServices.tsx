@@ -83,6 +83,7 @@ export default function FeaturedServices() {
   return (
     <Box
       component="section"
+      id="featuredservices" 
       sx={{
         py: { xs: 10, md: 20 },
         px: { xs: 2, md: 8 },
