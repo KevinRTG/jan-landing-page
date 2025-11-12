@@ -4,7 +4,9 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AOSInitializer from '@/components/AOSInitializer';
-import ThemeWrapper from '@/components/ThemeWrapper'; // ⬅️ gunakan ini
+import ThemeWrapper from '@/components/ThemeWrapper';
+import ScrollToTop from '@/components/ScrollToTop'; 
+import ScrollHash from '@/components/ScrollHash';
 
 const inter = Inter({ subsets: ['latin'] });
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'] });
@@ -20,9 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} ${poppins.className}`}>
         <ThemeWrapper>
+          <ScrollToTop />
+          <ScrollHash /> 
           <AOSInitializer />
           <Navbar />
           <main>{children}</main>

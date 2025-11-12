@@ -45,8 +45,10 @@ export default function Footer() {
             <h4 className="text-md font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="hover:text-gray-400 transition">Beranda</Link></li>
-              <li><Link href="/about" className="hover:text-gray-400 transition">Tentang Kami</Link></li>
-              <li><Link href="/services" className="hover:text-gray-400 transition">Layanan Kami</Link></li>
+              <li><Link href="/#visimisi" className="hover:text-gray-400 transition">Visi Misi</Link></li>
+              <li><Link href="/#featuredservices" className="hover:text-gray-400 transition">Mengapa JAN?</Link></li>
+              <li><Link href="/#viewallproduct" className="hover:text-gray-400 transition">Produk Kami</Link></li>
+              <li><Link href="/layanan" className="hover:text-gray-400 transition">Layanan Kami</Link></li>
               <li><Link href="/contact" className="hover:text-gray-400 transition">Kontak</Link></li>
             </ul>
           </div>
