@@ -1,4 +1,5 @@
-'use client';
+'use client'; 
+// Directive Next.js: memastikan komponen ini dijalankan di sisi client (bukan server).
 
 import {
   Box,
@@ -7,12 +8,22 @@ import {
   useTheme,
   Card,
   CardContent,
-  CardHeader,
-  Divider,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
+
+/**
+ * @file FeaturedServices.tsx
+ * @description Komponen untuk menampilkan daftar keunggulan/fitur utama JAN Nusantara.
+ * 
+ * - Menampilkan daftar fitur dalam bentuk **grid (desktop)** atau **slider (mobile)**.
+ * - Menggunakan **Framer Motion** untuk animasi fade-in saat elemen masuk viewport.
+ * - Menggunakan **Keen Slider** untuk carousel responsif di mobile.
+ * - Styling berbasis Material UI (MUI) dengan kombinasi props mirip Tailwind.
+ * 
+ * @author [KevinRTG](https://github.com/KevinRTG)
+ */
 
 const features = [
   {
@@ -56,6 +67,7 @@ export default function FeaturedServices() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+  // Inisialisasi slider untuk mobile view
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     loop: true,
     mode: 'free',
@@ -66,6 +78,7 @@ export default function FeaturedServices() {
     },
   });
 
+  // Styling badge "Fitur"
   const badgeStyle = {
     display: 'inline-block',
     fontSize: '0.75rem',
@@ -92,6 +105,7 @@ export default function FeaturedServices() {
         color: '#ffffff',
       }}
     >
+      {/* Judul section */}
       <Typography
         variant="h4"
         fontWeight="bold"
@@ -111,6 +125,7 @@ export default function FeaturedServices() {
         Mengapa Harus JAN?
       </Typography>
 
+      {/* Tampilan mobile → slider */}
       {isMobile ? (
         <Box
           ref={sliderRef}
@@ -171,6 +186,7 @@ export default function FeaturedServices() {
           ))}
         </Box>
       ) : (
+        /* Tampilan desktop → grid */
         <Box
           sx={{
             display: 'grid',

@@ -1,9 +1,11 @@
-'use client';
+'use client'; 
+// Directive Next.js: memastikan komponen ini dijalankan di sisi client (bukan server).
 
 import Image from 'next/image';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useRef, useState, useEffect } from 'react';
 
+// Daftar klien dengan nama dan logo
 const clients = [
   { name: 'pln', logo: '/pln.png' },
   { name: 'hermina', logo: '/hermina.png' },
@@ -14,19 +16,43 @@ const clients = [
   { name: 'manpowergroup', logo: '/manpowergroup.png' },
 ];
 
+/**
+ * Komponen ClientLoop.
+ * 
+ * - Menampilkan daftar logo klien dalam bentuk carousel horizontal.
+ * - Fitur utama:
+ *   1. **Auto-scroll (mobile)** → logo bergerak otomatis ke kanan.
+ *   2. **Drag-scroll (desktop & mobile)** → pengguna bisa drag untuk scroll manual.
+ *   3. **Pause on hover** → animasi berhenti saat kursor berada di area logo.
+ *   4. **Fade-in animation** → setiap logo muncul dengan animasi bertahap.
+ *   5. **Responsive** → jumlah logo digandakan di mobile agar loop terasa lebih panjang.
+ * - Menggunakan Material UI (`Box`, `Typography`) untuk layout dan styling.
+ * - Menggunakan Next.js `Image` untuk optimasi gambar.
+ * 
+ * @returns {JSX.Element} Section berisi judul "Klien Kami" dan carousel logo klien.
+ */
 export default function ClientLoop() {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
+  // Ref untuk track scroll
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // State untuk drag-scroll
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  // State untuk pause auto-scroll
   const [isPaused, setIsPaused] = useState(false);
 
+  // Jika mobile, gandakan daftar logo agar loop lebih panjang
   const logos = isDesktop ? clients : [...clients, ...clients];
 
-  // Auto-scroll only on mobile
+  /**
+   * Auto-scroll hanya aktif di mobile.
+   * Menggunakan `requestAnimationFrame` untuk animasi halus.
+   */
   useEffect(() => {
     if (isDesktop) return;
 
@@ -34,6 +60,7 @@ export default function ClientLoop() {
     const step = () => {
       if (scrollRef.current && !isPaused && !isDragging) {
         scrollRef.current.scrollLeft += 0.5;
+        // Reset ke awal jika sudah mencapai ujung
         if (
           scrollRef.current.scrollLeft >=
           scrollRef.current.scrollWidth - scrollRef.current.clientWidth
@@ -48,7 +75,7 @@ export default function ClientLoop() {
     return () => cancelAnimationFrame(frameId);
   }, [isPaused, isDragging, isDesktop]);
 
-  // Drag-scroll
+  // Event handler drag-scroll
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsDragging(true);
@@ -63,7 +90,7 @@ export default function ClientLoop() {
     if (!isDragging || !scrollRef.current) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
+    const walk = (x - startX) * 1.5; // kecepatan drag
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -79,6 +106,7 @@ export default function ClientLoop() {
         position: 'relative',
       }}
     >
+      {/* Judul section */}
       <Typography
         variant="h4"
         fontWeight="bold"
@@ -98,7 +126,7 @@ export default function ClientLoop() {
       </Typography>
 
       <Box sx={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-        {/* Fade edges */}
+        {/* Fade edges kiri-kanan */}
         <Box
           sx={{
             position: 'absolute',
@@ -124,7 +152,7 @@ export default function ClientLoop() {
           }}
         />
 
-        {/* Logo track */}
+        {/* Track logo klien */}
         <Box
           ref={scrollRef}
           onMouseDown={handleMouseDown}

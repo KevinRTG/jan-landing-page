@@ -1,9 +1,36 @@
-'use client';
+'use client'; 
+// Directive Next.js: memastikan komponen ini dijalankan di sisi client (bukan server).
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import WhatsAppShortcut from '@/components/WhatsAppShortcut';
 
+/**
+ * @file page.tsx (LayananPage)
+ * @description Halaman "Layanan" untuk CV. JAN Nusantara.
+ * 
+ * - Menampilkan hero section dengan judul dan deskripsi singkat.
+ * - Menyediakan daftar layanan utama perusahaan dalam bentuk array `layanan`.
+ * - Setiap layanan ditampilkan dengan animasi fade-in + slide menggunakan **Framer Motion**.
+ * - Styling berbasis Tailwind CSS untuk layout responsif dan tipografi.
+ * - Menyertakan komponen `WhatsAppShortcut` sebagai tombol melayang untuk chat langsung.
+ * 
+ * ⚠️ Catatan:
+ * - Halaman ini otomatis tersedia di route `/layanan`.
+ * - Daftar layanan dapat diperluas dengan menambahkan objek baru ke array `layanan`.
+ * 
+ * @returns {JSX.Element} Halaman layanan dengan hero section, daftar layanan, dan shortcut WhatsApp.
+ * 
+ * @example
+ * ```tsx
+ * // Routing Next.js otomatis akan menampilkan halaman ini di /layanan
+ * export default function LayananPage() { ... }
+ * ```
+ * 
+ * @author [KevinRTG](https://github.com/KevinRTG)
+ */
+
+// Daftar layanan utama JAN Nusantara
 const layanan = [
   {
     title: 'Konstruksi & Supplier',
@@ -38,7 +65,6 @@ export default function LayananPage() {
         </div>
       </section>
 
-
       {/* Konten Layanan */}
       <section id="layanan" className="max-w-6xl mx-auto px-4 py-16 space-y-12">
         {layanan.map((item, index) => (
@@ -50,15 +76,18 @@ export default function LayananPage() {
             viewport={{ once: true }}
             className="space-y-4"
           >
+            {/* Judul layanan */}
             <h3 className="text-2xl font-bold text-black drop-shadow-md">
               {item.title}
             </h3>
+            {/* Deskripsi layanan */}
             <p className="text-gray-700 text-base sm:text-lg leading-relaxed drop-shadow-sm">
               {item.desc}
             </p>
           </motion.div>
         ))}
 
+        {/* Shortcut WhatsApp */}
         <WhatsAppShortcut />
       </section>
     </main>

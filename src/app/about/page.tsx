@@ -1,7 +1,35 @@
-'use client';
+'use client'; 
+// Directive Next.js: memastikan komponen ini dijalankan di sisi client (bukan server).
 
 import Image from 'next/image';
 
+/**
+ * @file page.tsx (AboutPage)
+ * @description Halaman "Tentang Perusahaan" untuk CV. JAN Nusantara.
+ * 
+ * - Menampilkan banner gambar dengan overlay judul.
+ * - Menyediakan beberapa section informatif:
+ *   1. **Profil Perusahaan** → deskripsi singkat tentang CV. JAN Nusantara.
+ *   2. **Komitmen Kami** → daftar nilai inti perusahaan (profesionalitas, mutu, efisiensi, inovasi, kearifan lokal, ramah lingkungan).
+ *   3. **Visi & Misi** → ditampilkan dalam grid 2 kolom (desktop).
+ *   4. **Layanan & Legalitas** → cakupan layanan konstruksi dan kerja sama dengan pihak swasta, pemerintah, dan BUMN.
+ * - Styling berbasis Tailwind CSS untuk layout responsif.
+ * - Menggunakan Next.js `Image` untuk optimasi banner.
+ * 
+ * ⚠️ Catatan:
+ * - Halaman ini belum dipakai, tetapi siap digunakan jika ingin menambahkan menu "Tentang Kami".
+ * - Bisa diintegrasikan dengan `Navbar` melalui link `/about`.
+ * 
+ * @returns {JSX.Element} Halaman About dengan banner dan konten informatif.
+ * 
+ * @example
+ * ```tsx
+ * // Routing Next.js otomatis akan menampilkan halaman ini di /about
+ * export default function AboutPage() { ... }
+ * ```
+ * 
+ * @author [KevinRTG](https://github.com/KevinRTG)
+ */
 export default function AboutPage() {
   return (
     <main className="bg-white text-gray-800">
@@ -21,13 +49,17 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Konten */}
+      {/* Konten Utama */}
       <div className="max-w-5xl mx-auto space-y-16 py-16 px-4 sm:px-6 lg:px-8">
+        
         {/* Profil Perusahaan */}
         <section>
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-blue-800">Profil Perusahaan</h2>
           <p className="text-base sm:text-lg leading-relaxed">
-            CV. JAN Nusantara (JANTARA) adalah perusahaan General Contractor yang berbasis di Bekasi, berkomitmen menghadirkan solusi konstruksi berkualitas dan berkelanjutan. Didirikan melalui pengalaman bertahun-tahun, JAN melayani kebutuhan masyarakat dari skala mikro hingga proyek besar, dengan pendekatan profesional, fleksibel, dan efisien.
+            CV. JAN Nusantara (JANTARA) adalah perusahaan General Contractor yang berbasis di Bekasi, 
+            berkomitmen menghadirkan solusi konstruksi berkualitas dan berkelanjutan. 
+            Didirikan melalui pengalaman bertahun-tahun, JAN melayani kebutuhan masyarakat dari skala mikro 
+            hingga proyek besar, dengan pendekatan profesional, fleksibel, dan efisien.
           </p>
         </section>
 
@@ -49,7 +81,8 @@ export default function AboutPage() {
           <div>
             <h2 className="text-2xl font-semibold mb-2 text-blue-700">Visi</h2>
             <p className="italic text-base sm:text-lg">
-              "Menjadi berkat bagi sesama dengan membangun infrastruktur berkualitas yang mendorong pertumbuhan, saling menghargai, dan keberlanjutan."
+              "Menjadi berkat bagi sesama dengan membangun infrastruktur berkualitas yang mendorong pertumbuhan, 
+              saling menghargai, dan keberlanjutan."
             </p>
           </div>
           <div>
@@ -67,7 +100,9 @@ export default function AboutPage() {
         <section>
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">Layanan & Legalitas</h2>
           <p className="text-base sm:text-lg leading-relaxed">
-            JAN Nusantara menyediakan layanan konstruksi umum, pengadaan, dan engineering di berbagai bidang seperti perumahan, jalan, jembatan, telekomunikasi, serta instalasi dan commissioning BTS. Kami bekerja sama dengan pihak swasta nasional, pemerintah, dan BUMN.
+            JAN Nusantara menyediakan layanan konstruksi umum, pengadaan, dan engineering di berbagai bidang 
+            seperti perumahan, jalan, jembatan, telekomunikasi, serta instalasi dan commissioning BTS. 
+            Kami bekerja sama dengan pihak swasta nasional, pemerintah, dan BUMN.
           </p>
         </section>
       </div>

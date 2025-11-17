@@ -1,64 +1,91 @@
-'use client';
+'use client'; 
+// Directive Next.js: memastikan komponen ini dijalankan di sisi client (bukan server).
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
+/**
+ * @file Navbar.tsx
+ * @description Komponen Navbar untuk aplikasi JAN Nusantara.
+ * 
+ * - Menampilkan navigasi utama dengan logo perusahaan.
+ * - Mendukung tampilan **desktop** (horizontal nav) dan **mobile** (toggle menu).
+ * - Menggunakan `IntersectionObserver` untuk mendeteksi section yang sedang terlihat
+ *   dan menandai link aktif sesuai posisi scroll.
+ * - Styling berbasis Tailwind CSS dengan sticky header dan shadow.
+ * 
+ * Fitur utama:
+ * 1. **Logo** → ditampilkan di kiri atas dengan teks "CV. JAN NUSANTARA".
+ * 2. **Desktop Navigation** → link horizontal dengan highlight pada section aktif.
+ * 3. **Mobile Navigation** → toggle menu dengan animasi expand/collapse.
+ * 4. **Active Section Tracking** → menggunakan `IntersectionObserver` untuk update state `activeSection`.
+ * 
+ * @author [KevinRTG](https://github.com/KevinRTG)
+ */
+
 export default function Navbar() {
+  // State untuk toggle menu mobile
   const [isOpen, setIsOpen] = useState(false);
+  // Pathname saat ini
   const pathname = usePathname();
+  // State untuk section aktif berdasarkan scroll
   const [activeSection, setActiveSection] = useState('');
+  // Flag untuk memastikan komponen berjalan di client
   const [isClient, setIsClient] = useState(false);
 
-    useEffect(() => {
-      setIsClient(true);
-    }, []);
-
-
   useEffect(() => {
-  const sectionIds = ['visimisi', 'featuredservices', 'viewallproduct'];
-  const sectionElements = sectionIds
-    .map((id) => {
-      const el = document.getElementById(id);
-      return el ? { id, el } : null;
-    })
-    .filter(Boolean) as { id: string; el: HTMLElement }[];
+    setIsClient(true);
+  }, []);
 
-  const visibilityMap = new Map<string, number>();
+  /**
+   * IntersectionObserver untuk mendeteksi section yang sedang terlihat.
+   * Section IDs: visimisi, featuredservices, viewallproduct.
+   */
+  useEffect(() => {
+    const sectionIds = ['visimisi', 'featuredservices', 'viewallproduct'];
+    const sectionElements = sectionIds
+      .map((id) => {
+        const el = document.getElementById(id);
+        return el ? { id, el } : null;
+      })
+      .filter(Boolean) as { id: string; el: HTMLElement }[];
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        visibilityMap.set(entry.target.id, entry.intersectionRatio);
-      });
+    const visibilityMap = new Map<string, number>();
 
-      // Cari section dengan rasio tertinggi
-      let maxRatio = 0;
-      let mostVisibleId = '';
-      visibilityMap.forEach((ratio, id) => {
-        if (ratio > maxRatio) {
-          maxRatio = ratio;
-          mostVisibleId = id;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visibilityMap.set(entry.target.id, entry.intersectionRatio);
+        });
+
+        // Cari section dengan rasio tertinggi
+        let maxRatio = 0;
+        let mostVisibleId = '';
+        visibilityMap.forEach((ratio, id) => {
+          if (ratio > maxRatio) {
+            maxRatio = ratio;
+            mostVisibleId = id;
+          }
+        });
+
+        if (mostVisibleId) {
+          setActiveSection(`#${mostVisibleId}`);
         }
-      });
-
-      if (mostVisibleId) {
-        setActiveSection(`#${mostVisibleId}`);
+      },
+      {
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+        rootMargin: '0px 0px -40% 0px',
       }
-    },
-    {
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-      rootMargin: '0px 0px -40% 0px',
-    }
-  );
+    );
 
-  sectionElements.forEach(({ el }) => observer.observe(el));
+    sectionElements.forEach(({ el }) => observer.observe(el));
 
-  return () => observer.disconnect();
-}, []);
+    return () => observer.disconnect();
+  }, []);
 
-
+  // Daftar link navigasi
   const navLinks = [
     { href: '/', label: 'Beranda' },
     { href: '/#visimisi', label: 'Visi Misi' },
@@ -72,7 +99,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white text-black shadow-md font-roboto">
       <nav className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo */}
+          {/* Logo Perusahaan */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative w-[50px] h-[50px]">
               <Image
@@ -88,7 +115,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Navigasi Desktop */}
           <div className="hidden md:flex space-x-8 items-center text-sm">
             {navLinks.map(({ href, label }) => (
               <Link
@@ -105,7 +132,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Toggle */}
+          {/* Toggle Menu Mobile */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -124,7 +151,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Navigasi Mobile */}
         <div
           className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
             isOpen ? 'max-h-screen' : 'max-h-0'
