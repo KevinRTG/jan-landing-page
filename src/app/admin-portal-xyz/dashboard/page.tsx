@@ -22,6 +22,7 @@ interface ProductForm {
 export default function Dashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [showForm, setShowForm] = useState(false);
+  const [editingProductId, setEditingProductId] = useState<number | null>(null);
   const [formData, setFormData] = useState<ProductForm>({
     name: '',
     description: '',
@@ -31,13 +32,17 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    const checkAuth = async () => {
+    const init = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) router.push('/admin-portal-xyz/login');
+      if (!user) {
+        router.push('/admin-portal-xyz/login');
+        return;
+      }
+      await fetchProducts();
     };
-    checkAuth();
-    fetchProducts();
-  }, []);
+
+    init();
+  }, [router]);
 
   const fetchProducts = async () => {
     const { data } = await supabase.from('products').select('*');
@@ -75,20 +80,39 @@ export default function Dashboard() {
       return;
     }
 
-    const { error } = await supabase.from('products').insert([{
-      name: formData.name,
-      description: formData.description,
-      image_url: formData.image_url,
-      price: priceValue,
-    }]);
+    if (editingProductId) {
+      const { error } = await supabase
+        .from('products')
+        .update({
+          name: formData.name,
+          description: formData.description,
+          image_url: formData.image_url,
+          price: priceValue,
+        })
+        .eq('id', editingProductId);
 
-    if (error) {
-      console.error('Insert error:', error);
-      alert('Gagal menyimpan: ' + error.message);
-      return;
+      if (error) {
+        console.error('Update error:', error);
+        alert('Gagal mengupdate: ' + error.message);
+        return;
+      }
+    } else {
+      const { error } = await supabase.from('products').insert([{
+        name: formData.name,
+        description: formData.description,
+        image_url: formData.image_url,
+        price: priceValue,
+      }]);
+
+      if (error) {
+        console.error('Insert error:', error);
+        alert('Gagal menyimpan: ' + error.message);
+        return;
+      }
     }
 
     setFormData({ name: '', description: '', image_url: '', price: '' });
+    setEditingProductId(null);
     setShowForm(false);
     fetchProducts();
   };
@@ -110,7 +134,11 @@ export default function Dashboard() {
           <h1 className="text-2xl sm:text-3xl font-bold text-black">📦 Katalog Produk</h1>
           <div className="flex gap-2 flex-wrap">
             <button
-              onClick={() => setShowForm(true)}
+              onClick={() => {
+                setFormData({ name: '', description: '', image_url: '', price: '' });
+                setEditingProductId(null);
+                setShowForm(true);
+              }}
               className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition text-sm sm:text-base"
             >
               + Tambah Produk
@@ -135,12 +163,29 @@ export default function Dashboard() {
               <p className="text-purple-600 font-semibold mb-4 text-sm sm:text-base">
                 Rp {p.price.toLocaleString()}
               </p>
-              <button
-                onClick={() => handleDelete(p.id)}
-                className="text-sm text-red-500 hover:underline"
-              >
-                Hapus
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    setFormData({
+                      name: p.name,
+                      description: p.description,
+                      image_url: p.image_url,
+                      price: p.price.toString(),
+                    });
+                    setEditingProductId(p.id);
+                    setShowForm(true);
+                  }}
+                  className="text-sm text-blue-500 hover:underline"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(p.id)}
+                  className="text-sm text-red-500 hover:underline"
+                >
+                  Hapus
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -148,7 +193,9 @@ export default function Dashboard() {
         {showForm && (
           <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 overflow-y-auto">
             <div className="bg-white p-6 rounded-lg text-black shadow-lg w-full max-w-md mx-4 my-8">
-              <h2 className="text-xl font-bold mb-4 text-gray-800">Tambah Produk</h2>
+              <h2 className="text-xl font-bold mb-4 text-gray-800">
+                {editingProductId ? 'Edit Produk' : 'Tambah Produk'}
+              </h2>
               <input
                 type="text"
                 placeholder="Nama produk"
@@ -180,7 +227,10 @@ export default function Dashboard() {
               />
               <div className="flex justify-end gap-2">
                 <button
-                  onClick={() => setShowForm(false)}
+                  onClick={() => {
+                    setShowForm(false);
+                    setEditingProductId(null);
+                  }}
                   className="px-4 py-2 text-gray-600 hover:underline"
                 >
                   Batal

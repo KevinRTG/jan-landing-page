@@ -1,4 +1,4 @@
-import CatalogClient from '../../components/CatalogClient';
+import CatalogClient from '@/components/CatalogClient';
 
 /**
  * @file page.tsx (CatalogPage)

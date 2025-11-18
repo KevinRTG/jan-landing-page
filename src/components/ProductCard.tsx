@@ -45,6 +45,15 @@ export default function ProductCard({ product }: { product: Product }) {
   // Jika data produk belum tersedia → tampilkan loading
   if (!product) return <div>Loading...</div>;
 
+    // Format harga ke Rupiah Indonesia
+  const formattedPrice = product.price
+    ? new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+      }).format(Number(product.price))
+    : 'Harga tidak tersedia';
+
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       {/* Gambar produk dengan fallback */}
@@ -53,7 +62,7 @@ export default function ProductCard({ product }: { product: Product }) {
         alt={product.name || 'Product'} 
         width={300} 
         height={200} 
-        className="w-full h-48 object-cover" 
+        className="w-full h-100 object-cover" 
       />
 
       {/* Konten produk */}
@@ -69,8 +78,8 @@ export default function ProductCard({ product }: { product: Product }) {
         </p>
 
         {/* Harga produk */}
-        <p className="text-purple-600 font-bold">
-          Rp {product.price || 'Harga tidak tersedia'}
+        <p className="text-black font-bold">
+          {formattedPrice}
         </p>
       </div>
     </div>
